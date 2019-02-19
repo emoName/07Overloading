@@ -18,6 +18,9 @@ namespace _07_Overloading
             angles[1] = 4;
             angles[2] = 1;
 
+            MyClass myClass = new MyClass();
+           
+
         
             
             foreach(var i in angles)
@@ -26,7 +29,25 @@ namespace _07_Overloading
                 Console.WriteLine(i);
 
             }
+            Console.WriteLine("======================================================");
+            foreach (var item in myClass)
+            {
+             
+                Console.WriteLine(item);
+                Console.WriteLine("=====================================================");
+                foreach (var item1 in myClass)
+                {
+                    Console.WriteLine(item1);
+                }
+                Console.WriteLine("==================================");
+            }
 
+            Console.WriteLine("-------------------------------------------------------------------");
+            while (myClass.MoveNext())
+            {
+                Console.WriteLine(myClass.Current);
+            }
+            myClass.Reset();
 
 
 
@@ -37,25 +58,59 @@ namespace _07_Overloading
 
 
 
-    class MyClass : IEnumerable
+    class MyClass : IEnumerable ,IEnumerator
     {
       public  int a;
-        private MyClass Next;
-        public object Current => throw new NotImplementedException();
+
+        public int b;
+
+        int _curentPosition = -1;
+
+        public MyClass()
+        {
+            a = 2;
+            b = 5;
+        }
+
+        public MyClass(MyClass myClass)
+        {
+            this.a = myClass.a;
+            this.b = myClass.b;
+                
+                
+                }
+
+        public object Current
+        {
+            get
+            {
+                switch (_curentPosition)
+                {
+                    case 0: return this.a;
+                    case 1: return this.b;
+
+                    default:
+                        throw new IndexOutOfRangeException();
+                        break;
+                }
+            }
+
+        }
 
         public IEnumerator GetEnumerator()
         {
-            throw new NotImplementedException();
+            return (IEnumerator)  new MyClass(this)  ;
         }
 
         public bool MoveNext()
         {
-            throw new NotImplementedException();
+            _curentPosition++;
+            return _curentPosition < 2 ? true : false;
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            _curentPosition = -1;
         }
     }
 }
