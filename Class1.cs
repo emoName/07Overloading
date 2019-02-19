@@ -10,20 +10,71 @@ namespace _07_Overloading
 
     class Angle : IEnumerable
     {
-        private Double _degrees;
-        private Double _minutes;
-        private Double _seconds;
 
-        protected int DegreeToMin(int degree)
+
+        private Double _degrees=0;
+
+        private Double _minutes = 0;
+
+        private Double _seconds = 0;
+
+        private Double Degrees
         {
-
-            return (degree * 60);
+        set
+            {
+                if (value>360  )
+                {
+                    throw new IndexOutOfRangeException("Degree Cant be > 360");
+                }
+                else
+                {
+                    _degrees = value;
+                }
+            }
+            get
+            {
+                return _degrees;
+            }
         }
-        protected int MinToSec(int min)
+        private Double Minutes
         {
+            set
+            {
+                if (value > 60)
+                {
+                    Degrees =_degrees+ (int)value / 60;
+                    Minutes = value % 60;
 
-            return (min * 60);
+                }
+                else
+                {
+                    _minutes = value;
+                }
+            }
         }
+        private Double Seconds
+        {
+            set
+            {
+                if (value > 60)
+                {
+                    Minutes = _minutes + (int)value / 60;
+                    Seconds = value % 60;
+
+                }
+                else
+                {
+                    _seconds = value;
+                }
+            }
+        }
+
+        private Double MinToDegree(Double s)
+        {
+            return 0.4;
+        }
+
+   
         private const Double _eps = 0.0000001;
 
 

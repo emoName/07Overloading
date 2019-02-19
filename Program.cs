@@ -19,9 +19,9 @@ namespace _07_Overloading
             angles[2] = 1;
 
             MyClass myClass = new MyClass();
-           
 
-        
+
+            myClass.MoveNext();
             
             foreach(var i in angles)
             {
@@ -51,10 +51,17 @@ namespace _07_Overloading
 
 
 
+
+
             Console.ReadLine();
         }
 
     }
+
+
+
+
+
 
 
 
