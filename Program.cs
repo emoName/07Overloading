@@ -12,18 +12,20 @@ namespace _07_Overloading
         static void Main(string[] args)
         {
 
-            Angle angles = new Angle();
+            Angle a = new Angle();
 
-            angles[0] = 3;
-            angles[1] = 4;
-            angles[2] = 1;
+            a[0] = 3;
+            a[1] = 4;
+            a[2] = 1;
+            Angle b = new Angle() { [0] = 6, [1] = 3, [2] = 30 };
+            Angle c;
 
             MyClass myClass = new MyClass();
 
 
             myClass.MoveNext();
-            
-            foreach(var i in angles)
+
+            foreach (var i in a)
             {
 
                 Console.WriteLine(i);
@@ -32,7 +34,7 @@ namespace _07_Overloading
             Console.WriteLine("======================================================");
             foreach (var item in myClass)
             {
-             
+
                 Console.WriteLine(item);
                 Console.WriteLine("=====================================================");
                 foreach (var item1 in myClass)
@@ -49,75 +51,46 @@ namespace _07_Overloading
             }
             myClass.Reset();
 
+            //-------------------------------------------------------------------------------------------------
+            c = a + b;
 
+            a.Show();
+            b.Show();
+            Console.Write("a + b = ");
+            c.Show();
+
+            Angle[] angles = new Angle[] { a, b, c };
+
+            angles.Reverse();
+
+            Show(angles);
+
+            Array.Sort(angles);
+            Console.WriteLine("-----------------------------------------------------------");
+
+            Show(angles);
+
+            Array.Sort(angles, new CustomCompare());
+
+            Show(angles);
 
 
 
             Console.ReadLine();
         }
 
-    }
-
-
-
-
-
-
-
-
-    class MyClass : IEnumerable ,IEnumerator
-    {
-      public  int a;
-
-        public int b;
-
-        int _curentPosition = -1;
-
-        public MyClass()
+        public static void Show(Angle[] angles)
         {
-            a = 2;
-            b = 5;
-        }
-
-        public MyClass(MyClass myClass)
-        {
-            this.a = myClass.a;
-            this.b = myClass.b;
-                
-                
-                }
-
-        public object Current
-        {
-            get
+      foreach (var item in angles)
             {
-                switch (_curentPosition)
-                {
-                    case 0: return this.a;
-                    case 1: return this.b;
-
-                    default:
-                        throw new IndexOutOfRangeException();
-                        break;
-                }
+                item.Show();
             }
 
         }
 
-        public IEnumerator GetEnumerator()
-        {
-            return (IEnumerator)  new MyClass(this)  ;
-        }
-
-        public bool MoveNext()
-        {
-            _curentPosition++;
-            return _curentPosition < 2 ? true : false;
-        }
-
-        public void Reset()
-        {
-            _curentPosition = -1;
-        }
     }
+
+
+
+
 }

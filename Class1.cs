@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace _07_Overloading
 {
 
-    class Angle : IEnumerable
+    class Angle : IEnumerable , IComparable , IShowAngle
     {
 
 
@@ -18,7 +18,7 @@ namespace _07_Overloading
 
         private Double _seconds = 0;
 
-        private Double Degrees
+        public Double Degrees
         {
         set
             {
@@ -28,6 +28,7 @@ namespace _07_Overloading
                 }
                 else
                 {
+              
                     _degrees = value;
                 }
             }
@@ -36,7 +37,7 @@ namespace _07_Overloading
                 return _degrees;
             }
         }
-        private Double Minutes
+        public Double Minutes
         {
             set
             {
@@ -51,8 +52,12 @@ namespace _07_Overloading
                     _minutes = value;
                 }
             }
+            get
+            {
+                return _minutes;
+            }
         }
-        private Double Seconds
+        public Double Seconds
         {
             set
             {
@@ -67,16 +72,22 @@ namespace _07_Overloading
                     _seconds = value;
                 }
             }
+
+            get
+            {
+                return _seconds;
+            }
         }
 
-        private Double MinToDegree(Double s)
-        {
-            return 0.4;
-        }
-
+ 
    
         private const Double _eps = 0.0000001;
 
+
+        public static Angle operator + (Angle a , Angle b)
+        {
+            return new Angle() {Degrees=a.Degrees+b.Degrees , Minutes=a.Minutes+b.Minutes , Seconds=a.Seconds+b.Seconds  };
+        } 
 
         public static Boolean operator ==(Angle a, Angle b)
         {
@@ -160,6 +171,30 @@ namespace _07_Overloading
         {
             return new AngleEnumerator(this);
         }
+
+        public int CompareTo(object obj)
+        {
+            Angle angle = (Angle)obj;
+
+            if (angle.Degrees < this.Degrees) return 1;
+            if (angle.Degrees > this.Degrees) return-1;
+            return 0;
+         
+        }
+
+        public void Show()
+        {
+            Console.WriteLine($"Angle: {_degrees} ^ {_minutes} \'\' {_seconds} \'  :");
+        }
+
+
+        class SortMethods 
+        {
+
+ 
+
+        }
+
     }
 
 
