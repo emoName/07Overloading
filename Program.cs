@@ -70,18 +70,25 @@ namespace _07_Overloading
 
             Show(angles);
 
+            Console.WriteLine("----------------Minutes----------------------");
+
             Array.Sort(angles, new CustomCompare());
+            Show(angles);
+
+            Console.WriteLine("-----------------Seconds---------------------");
+            Array.Sort(angles, new CustomCompare().Comparehhh);
 
             Show(angles);
 
 
 
             Console.ReadLine();
+
         }
 
         public static void Show(Angle[] angles)
         {
-      foreach (var item in angles)
+            foreach (var item in angles)
             {
                 item.Show();
             }

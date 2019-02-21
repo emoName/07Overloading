@@ -27,5 +27,22 @@ namespace _07_Overloading
 
 
         }
+        public int Comparehhh(Angle x, object y)
+        {
+
+
+            if (x is Angle a && y is Angle b)
+            {
+                if (a.Seconds > b.Seconds) return 1;
+                if (a.Seconds < b.Seconds) return -1;
+                return 0;
+            }
+            else
+                throw new InvalidCastException();
+
+
+
+
+        }
     }
 }

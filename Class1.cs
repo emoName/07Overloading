@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace _07_Overloading
 {
 
-    class Angle : IEnumerable , IComparable , IShowAngle
+    class Angle : IEnumerable, IComparable, IShowAngle, ICloneable
     {
 
 
-        private Double _degrees=0;
+        private Double _degrees = 0;
 
         private Double _minutes = 0;
 
@@ -20,15 +20,15 @@ namespace _07_Overloading
 
         public Double Degrees
         {
-        set
+            set
             {
-                if (value>360  )
+                if (value > 360)
                 {
                     throw new IndexOutOfRangeException("Degree Cant be > 360");
                 }
                 else
                 {
-              
+
                     _degrees = value;
                 }
             }
@@ -43,7 +43,7 @@ namespace _07_Overloading
             {
                 if (value > 60)
                 {
-                    Degrees =_degrees+ (int)value / 60;
+                    Degrees = _degrees + (int)value / 60;
                     Minutes = value % 60;
 
                 }
@@ -79,15 +79,15 @@ namespace _07_Overloading
             }
         }
 
- 
-   
+
+
         private const Double _eps = 0.0000001;
 
 
-        public static Angle operator + (Angle a , Angle b)
+        public static Angle operator +(Angle a, Angle b)
         {
-            return new Angle() {Degrees=a.Degrees+b.Degrees , Minutes=a.Minutes+b.Minutes , Seconds=a.Seconds+b.Seconds  };
-        } 
+            return new Angle() { Degrees = a.Degrees + b.Degrees, Minutes = a.Minutes + b.Minutes, Seconds = a.Seconds + b.Seconds };
+        }
 
         public static Boolean operator ==(Angle a, Angle b)
         {
@@ -113,12 +113,12 @@ namespace _07_Overloading
         {
             get
             {
-              //  s = s.ToLower();
+                //  s = s.ToLower();
                 switch (s)
                 {
-                    case 0 : return _degrees;
-                    case 1 : return _minutes;
-                    case 2 : return _seconds;
+                    case 0: return _degrees;
+                    case 1: return _minutes;
+                    case 2: return _seconds;
                     default:
                         throw new IndexOutOfRangeException($"Not expected Index :: {s} ::");
                         break;
@@ -127,12 +127,12 @@ namespace _07_Overloading
 
             set
             {
-              //  s = s.ToLower();
+                //  s = s.ToLower();
                 switch (s)
                 {
-                    case 0 : _degrees = value; break;
-                    case 1 : _minutes = value; break;
-                    case 2 : _seconds = value; break;
+                    case 0: _degrees = value; break;
+                    case 1: _minutes = value; break;
+                    case 2: _seconds = value; break;
                     default:
                         throw new IndexOutOfRangeException($"Not expected Index :: {s} ::");
                         break;
@@ -177,9 +177,9 @@ namespace _07_Overloading
             Angle angle = (Angle)obj;
 
             if (angle.Degrees < this.Degrees) return 1;
-            if (angle.Degrees > this.Degrees) return-1;
+            if (angle.Degrees > this.Degrees) return -1;
             return 0;
-         
+
         }
 
         public void Show()
@@ -187,13 +187,17 @@ namespace _07_Overloading
             Console.WriteLine($"Angle: {_degrees} ^ {_minutes} \'\' {_seconds} \'  :");
         }
 
-
-        class SortMethods 
+        public object Clone()
         {
-
- 
+            Angle a = new Angle();
+            a.Degrees = this.Degrees;
+            a.Minutes = this.Minutes;
+            a.Seconds = this.Seconds;
+            return a;
 
         }
+
+
 
     }
 
